@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>마음 보호 10분 매뉴얼 (Cute Cat Fix)</title>
+    <title>마음 보호 10분 매뉴얼</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -62,12 +62,9 @@
             Mint: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2"><path d="M12 3L9 12l3 9 3-9-3-9z"/></svg>,
             Breath: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2"><path d="M2 12h10m10 0h-2M7 16h10M5 8h12"/></svg>,
             Trophy: () => <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#1e293b" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>,
-            
-            // --- 리디자인된 성장 단계별 아이콘 ---
             Stage1: () => (
                 <svg width="120" height="120" viewBox="0 0 24 24" fill="#f472b6">
-                    <circle cx="12" cy="14" r="5"/>
-                    <circle cx="7" cy="8" r="2"/><circle cx="10.5" cy="6" r="2"/><circle cx="14.5" cy="6" r="2"/><circle cx="18" cy="9" r="2"/>
+                    <circle cx="12" cy="14" r="5"/><circle cx="7" cy="8" r="2"/><circle cx="10.5" cy="6" r="2"/><circle cx="14.5" cy="6" r="2"/><circle cx="18" cy="9" r="2"/>
                 </svg>
             ),
             Stage2: () => (
@@ -85,7 +82,6 @@
             ),
             Stage4: () => (
                 <svg width="120" height="120" viewBox="0 0 24 24" fill="#475569">
-                    {/* Sitting Cat Silhouette */}
                     <path d="M12 6c-2.5 0-4 1.5-4 4 0 1 .5 2 1.5 2.5-1.5 2-2.5 4-2.5 6.5 0 1 1 1 1 1h8s1 0 1-1c0-2.5-1-4.5-2.5-6.5 1-.5 1.5-1.5 1.5-2.5 0-2.5-1.5-4-4-4z" />
                     <path d="M9 5l-2-3 2 1.5M15 5l2-3-2 1.5" stroke="#475569" strokeWidth="1" fill="none" />
                     <path d="M17 19c2 0 3-1 3-3s-1-3-2-3" stroke="#475569" strokeWidth="1.5" fill="none" strokeLinecap="round" />
@@ -93,35 +89,34 @@
             ),
             Stage5: () => (
                 <svg width="120" height="120" viewBox="0 0 24 24">
-                    {/* Happy Jumping Cat */}
                     <path d="M12 4c-2.5 0-4 1.5-4 4 0 1.5.5 2.5 1.5 3.5-1.5 2-2 4.5-2 6.5 0 1 1 1 1 1h7s1 0 1-1c0-2-0.5-4.5-2-6.5 1-1 1.5-2 1.5-3.5 0-2.5-1.5-4-4-4z" fill="#334155" />
                     <path d="M9 5l-2-2 2 1M15 5l2-2-2 1" stroke="#334155" strokeWidth="1" fill="none" />
                     <path d="M6 10l-2-2M18 10l2-2" stroke="#334155" strokeWidth="1.5" strokeLinecap="round" />
-                    <path d="M12 14.5l-1.5 1.5a2 2 0 0 0 3 0l-1.5-1.5z" fill="#f472b6" /> {/* Heart */}
+                    <path d="M12 14.5l-1.5 1.5a2 2 0 0 0 3 0l-1.5-1.5z" fill="#f472b6" />
                     <circle cx="10.5" cy="8" r="0.5" fill="white" /><circle cx="13.5" cy="8" r="0.5" fill="white" />
                 </svg>
             )
         };
 
         const SUCCESS_STAGES = [
-            { icon: <SVGS.Stage1 />, title: "젤리 발견!🐾", message: "앗, 귀여운 발바닥 젤리 발견! 당신의 의지가 꼬물꼬물 움직여요." },
-            { icon: <SVGS.Stage2 />, title: "챱챱 걷기!🐾🐾", message: "두 걸음째! 뇌가 '오? 먹는 거보다 재밌는데?' 하는 중이에요." },
-            { icon: <SVGS.Stage3 />, title: "나만 믿으라냥!🐱", message: "고양이가 당신을 쳐다보네요! '오, 꽤 하는데?'라고 말하는 것 같아요." },
-            { icon: <SVGS.Stage4 />, title: "거의 다 왔다냥!🐈", message: "고양이가 기분 좋게 갸르릉거려요. 당신은 이제 통제의 달인!" },
-            { icon: <SVGS.Stage5 />, title: "완벽하다냥!❤️", message: "고양이가 당신의 마음을 꼬옥 안아줄게요. 진짜 최고예요!" }
+            { icon: <SVGS.Stage1 />, title: "젤리 발견!🐾", message: "귀여운 발바닥 젤리 발견!<br/>당신의 의지가 꼬물꼬물 움직여요." },
+            { icon: <SVGS.Stage2 />, title: "챱챱 걷기!🐾🐾", message: "두 걸음째! 다른 즐거움이<br/>음식보다 더 커지는 중이에요." },
+            { icon: <SVGS.Stage3 />, title: "나만 믿으라냥!🐱", message: "고양이가 당신을 쳐다봐요!<br/>'집사님, 꽤 하는데?' 하는 중." },
+            { icon: <SVGS.Stage4 />, title: "거의 다 왔다냥!🐈", message: "고양이가 기분 좋게 갸르릉거려요.<br/>당신은 이제 통제의 달인!" },
+            { icon: <SVGS.Stage5 />, title: "완벽하다냥!❤️", message: "고양이가 당신의 마음을 꼬옥 안아줄게요.<br/>해낸 당신이 진짜 최고예요!" }
         ];
 
         const BASE_MISSIONS = [
-            { id: 'water', title: "물 마시기", desc: "시원한 물 한 잔을 가져와 입안을 적시며 천천히 마셔보세요.", icon: <SVGS.Water /> },
-            { id: 'ear', title: "귀 조물조물", desc: "양쪽 귓바퀴를 위아래로 꾹꾹 누르며 1분간 마사지하세요.", icon: <SVGS.Ear /> },
-            { id: 'color', title: "색깔 찾기", desc: "주변에서 '{color}' 물건 5개를 찾아 이름을 조용히 불러보세요.", icon: <SVGS.Camera /> },
-            { id: 'rainbow', title: "무지개 찾기", desc: "빨주노초파남보, 무지개색 물건을 하나씩 손가락으로 가리키세요.", icon: <SVGS.Rainbow /> },
-            { id: 'math', title: "거꾸로 빼기", desc: "숫자 100에서 {step}을(를) 계속 빼면서 0이 될 때까지 말하세요.", icon: <SVGS.Math /> },
-            { id: 'move', title: "몸 움직이기", desc: "제자리 걸음 50번을 하며 몸의 감각에 집중해 보세요.", icon: <SVGS.Step /> },
-            { id: 'phone', title: "사진 정리", desc: "폰 갤러리를 열어 불필요한 사진 10장만 지워보세요.", icon: <SVGS.Phone /> },
-            { id: 'care', title: "핸드크림", desc: "핸드크림을 바르고 손가락 마디마디를 꾹꾹 누르며 향기를 맡으세요.", icon: <SVGS.Care /> },
-            { id: 'mint', title: "양치하기", desc: "양치를 하거나 민트 껌을 씹어 입안을 상쾌하게 만드세요.", icon: <SVGS.Mint /> },
-            { id: 'breath', title: "심호흡 5번", desc: "크게 기지개를 켜고 깊은 심호흡을 5번 하세요. 잘 해냈습니다!", icon: <SVGS.Breath /> }
+            { id: 'water', title: "물 마시기", desc: "시원한 물 한 잔을 쭉 들이켜보세요.<br/>목을 타는 차가운 감각에 집중해봐요." },
+            { id: 'ear', title: "귀 조물조물", desc: "귓바퀴를 위아래로 꾹꾹 주물러보세요.<br/>긴장이 사르르 풀리는 걸 느껴봐요." },
+            { id: 'color', title: "색깔 찾기", desc: "주변에서 '{color}' 물건 5개를 찾아봐요.<br/>눈에 보이는 색깔에만 집중해볼까요?" },
+            { id: 'rainbow', title: "무지개 찾기", desc: "빨주노초파남보 무지개색 물건을 찾아요.<br/>하나씩 손가락으로 콕 찍어봐요." },
+            { id: 'math', title: "거꾸로 빼기", desc: "100에서 {step}을(를) 0이 될 때까지 빼보세요.<br/>입 밖으로 소리 내어 말해볼까요?" },
+            { id: 'move', title: "몸 움직이기", desc: "제자리에서 씩씩하게 50번 걸어보세요.<br/>움직이는 근육의 힘을 느껴봐요." },
+            { id: 'phone', title: "사진 정리", desc: "앨범을 열어 필요 없는 사진 10장을 지워요.<br/>비워지는 쾌감을 즐겨보세요." },
+            { id: 'care', title: "핸드크림", desc: "핸드크림을 바르며 손을 꾹꾹 눌러주세요.<br/>은은하게 퍼지는 향기에 집중해요." },
+            { id: 'mint', title: "입안 상쾌하게", desc: "양치를 하거나 민트 껌을 씹어보세요.<br/>입안 가득 퍼지는 상쾌함을 느껴봐요." },
+            { id: 'breath', title: "심호흡 5번", desc: "기지개를 쭉 켜고 깊게 숨을 5번 쉬세요.<br/>정말 고생 많았어요, 다 왔어요!" }
         ];
 
         function App() {
@@ -154,8 +149,14 @@
                 const step = MATH_STEPS[Math.floor(Math.random() * MATH_STEPS.length)];
                 let tempMissions = BASE_MISSIONS.map(m => ({
                     ...m,
-                    desc: m.desc.replace('{color}', color).replace('{step}', step)
+                    desc: m.desc.replace('{color}', color).replace('{step}', step),
+                    icon: Object.values(SVGS)[Math.floor(Math.random()*10)]() // 임시 아이콘 대응
                 }));
+                
+                // 실제 미션용 아이콘 재할당
+                const icons = [SVGS.Water, SVGS.Ear, SVGS.Camera, SVGS.Rainbow, SVGS.Math, SVGS.Step, SVGS.Phone, SVGS.Care, SVGS.Mint, SVGS.Breath];
+                tempMissions = tempMissions.map((m, i) => ({ ...m, icon: icons[i]() }));
+
                 for (let i = tempMissions.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [tempMissions[i], tempMissions[j]] = [tempMissions[j], tempMissions[i]];
@@ -238,8 +239,8 @@
                             </div>
                             <div className="mission-card">
                                 <div style={{ marginBottom: '15px' }}>{shuffledMissions[currentIdx].icon}</div>
-                                <h2 style={{ fontSize: '22px', fontWeight: '900', color: '#1a237e' }}>{shuffledMissions[currentIdx].title}</h2>
-                                <p style={{ fontSize: '16px', lineHeight: '1.5', color: '#475569', margin: '10px 0', wordBreak: 'keep-all' }}>"{shuffledMissions[currentIdx].desc}"</p>
+                                <h2 style={{ fontSize: '22px', fontWeight: '900', color: '#1e3a8a' }}>{shuffledMissions[currentIdx].title}</h2>
+                                <p className="desc-text" style={{ fontSize: '16px', lineHeight: '1.5', color: '#475569', margin: '10px 0' }} dangerouslySetInnerHTML={{ __html: shuffledMissions[currentIdx].desc }}></p>
                                 <div style={{ marginTop: '15px' }}><span style={{ background: '#eff6ff', color: '#2563eb', padding: '5px 12px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold' }}>Step {currentIdx + 1} / 10</span></div>
                             </div>
                             <button className="btn-next" onClick={handleMissionComplete}>미션 완료!</button>
@@ -254,10 +255,9 @@
                             <div style={{ padding: '0 25px' }}>
                                 <h2 style={{ fontSize: '18px', fontWeight: '900', color: '#059669', marginBottom: '10px' }}>{getStageData().title}</h2>
                                 <p style={{ fontSize: '16px', color: '#374151', fontWeight: 'bold', lineHeight: '1.6', wordBreak: 'keep-all' }}>
-                                    {getStageData().message}
+                                    {getStageData().message.split('<br/>').map((line, i) => <span key={i}>{line}<br/></span>)}
                                 </p>
                             </div>
-                            <p style={{ marginTop: '30px', fontSize: '12px', color: '#9ca3af' }}>잠시 후 다음 단계로...</p>
                         </div>
                     )}
 

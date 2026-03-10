@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>마음 보호 10분 매뉴얼 (Cute Cat Fix)</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root { --primary: #1a237e; --accent: #22d3ee; --danger: #ef4444; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; padding: 0; background-color: #f1f5f9; font-family: -apple-system, sans-serif; height: 100dvh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        #root { width: 100%; max-width: 450px; height: 100%; padding-bottom: env(safe-area-inset-bottom); padding-top: env(safe-area-inset-top); }
+        .app-frame { width: 100%; height: 100%; background: white; box-shadow: 0 20px 50px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; position: relative; }
+        @media (min-width: 500px) { .app-frame { border-radius: 40px; border: 8px solid #e2e8f0; height: 90%; } }
+        
+        .btn-sos { width: 180px; height: 180px; border-radius: 50%; background: var(--danger); border: none; box-shadow: 0 10px 0 #b91c1c; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 30px auto; transition: all 0.1s; color: white; font-size: 30px; font-weight: 900; }
+        .btn-sos:active { transform: translateY(6px); box-shadow: none; }
+        .btn-next { background: var(--accent); color: var(--primary); border: none; padding: 18px; border-radius: 18px; font-size: 18px; font-weight: 900; margin: 15px 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(34, 211, 238, 0.4); margin-bottom: calc(15px + env(safe-area-inset-bottom)); }
+        
+        .screen { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .manual-screen { background-color: var(--primary); color: white; }
+        .inter-success-screen { background-color: #f0fdf4; text-align: center; justify-content: center; padding: 30px; }
+        .final-screen { background-color: #fbbf24; text-align: center; justify-content: center; padding: 30px; }
+        
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; background: #f8fafc; padding: 12px; border-radius: 15px; margin-top: 15px; color: #334155; border: 1px solid #e2e8f0; }
+        .calendar-day { font-size: 9px; padding: 4px 0; border-radius: 4px; text-align: center; }
+        .success-day { background-color: #fef3c7; color: #92400e; font-weight: bold; position: relative; }
+        .success-day::after { content: '🐾'; position: absolute; top: -4px; right: -2px; font-size: 10px; }
+        
+        .progress-bar-bg { height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 12px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent); transition: width 1s linear; }
+        
+        .mission-card { background: white; margin: 0 20px; border-radius: 30px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.2); flex: 1; display: flex; flex-direction: column; justify-content: center; color: #1e293b; }
+        
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .bounce { animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const COLORS_LIST = ["빨간색", "주황색", "노란색", "초록색", "파란색", "보라색", "하얀색", "검은색", "회색", "분홍색"];
+        const MATH_STEPS = [3, 4, 6, 7, 8, 9];
+
+        const SVGS = {
+            Water: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>,
+            Ear: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3 3 0 1 1-6 0"/></svg>,
+            Camera: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="12" cy="13" r="4"/></svg>,
+            Math: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M8 8h8M8 12h8M8 16h8"/></svg>,
+            Step: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2"><path d="M4 16v4h4m-4 0l16-16"/></svg>,
+            Rainbow: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ec4899" strokeWidth="2"><path d="M2 20a10 10 0 0 1 20 0"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>,
+            Phone: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>,
+            Care: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fb7185" strokeWidth="2"><path d="M7 13V6a2 2 0 0 1 4 0v7M11 13V4a2 2 0 0 1 4 0v9M15 13V6a2 2 0 0 1 4 0v7"/></svg>,
+            Mint: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2"><path d="M12 3L9 12l3 9 3-9-3-9z"/></svg>,
+            Breath: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2"><path d="M2 12h10m10 0h-2M7 16h10M5 8h12"/></svg>,
+            Trophy: () => <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#1e293b" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>,
+            
+            // --- 리디자인된 성장 단계별 아이콘 ---
+            Stage1: () => (
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="#f472b6">
+                    <circle cx="12" cy="14" r="5"/>
+                    <circle cx="7" cy="8" r="2"/><circle cx="10.5" cy="6" r="2"/><circle cx="14.5" cy="6" r="2"/><circle cx="18" cy="9" r="2"/>
+                </svg>
+            ),
+            Stage2: () => (
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="#f472b6">
+                    <g transform="translate(-3,-2)"><circle cx="10" cy="14" r="4"/><circle cx="6" cy="9" r="1.5"/><circle cx="9" cy="7" r="1.5"/><circle cx="12" cy="8" r="1.5"/><circle cx="14" cy="10" r="1.5"/></g>
+                    <g transform="translate(4,4)"><circle cx="10" cy="14" r="4"/><circle cx="6" cy="9" r="1.5"/><circle cx="9" cy="7" r="1.5"/><circle cx="12" cy="8" r="1.5"/><circle cx="14" cy="10" r="1.5"/></g>
+                </svg>
+            ),
+            Stage3: () => (
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="#64748b">
+                    <path d="M12 5c-4 0-7 3-7 7s3 7 7 7 7-3 7-7-3-7-7-7z" fill="none" stroke="#64748b" strokeWidth="1.5"/>
+                    <path d="M7 6l-2-3 4 2M17 6l2-3-4 2" stroke="#64748b" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                    <circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M10 16s1 1 2 1 2-1 2-1" fill="none" stroke="#64748b" strokeWidth="1" strokeLinecap="round"/>
+                </svg>
+            ),
+            Stage4: () => (
+                <svg width="120" height="120" viewBox="0 0 24 24" fill="#475569">
+                    {/* Sitting Cat Silhouette */}
+                    <path d="M12 6c-2.5 0-4 1.5-4 4 0 1 .5 2 1.5 2.5-1.5 2-2.5 4-2.5 6.5 0 1 1 1 1 1h8s1 0 1-1c0-2.5-1-4.5-2.5-6.5 1-.5 1.5-1.5 1.5-2.5 0-2.5-1.5-4-4-4z" />
+                    <path d="M9 5l-2-3 2 1.5M15 5l2-3-2 1.5" stroke="#475569" strokeWidth="1" fill="none" />
+                    <path d="M17 19c2 0 3-1 3-3s-1-3-2-3" stroke="#475569" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+                </svg>
+            ),
+            Stage5: () => (
+                <svg width="120" height="120" viewBox="0 0 24 24">
+                    {/* Happy Jumping Cat */}
+                    <path d="M12 4c-2.5 0-4 1.5-4 4 0 1.5.5 2.5 1.5 3.5-1.5 2-2 4.5-2 6.5 0 1 1 1 1 1h7s1 0 1-1c0-2-0.5-4.5-2-6.5 1-1 1.5-2 1.5-3.5 0-2.5-1.5-4-4-4z" fill="#334155" />
+                    <path d="M9 5l-2-2 2 1M15 5l2-2-2 1" stroke="#334155" strokeWidth="1" fill="none" />
+                    <path d="M6 10l-2-2M18 10l2-2" stroke="#334155" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M12 14.5l-1.5 1.5a2 2 0 0 0 3 0l-1.5-1.5z" fill="#f472b6" /> {/* Heart */}
+                    <circle cx="10.5" cy="8" r="0.5" fill="white" /><circle cx="13.5" cy="8" r="0.5" fill="white" />
+                </svg>
+            )
+        };
+
+        const SUCCESS_STAGES = [
+            { icon: <SVGS.Stage1 />, title: "젤리 발견!🐾", message: "앗, 귀여운 발바닥 젤리 발견! 당신의 의지가 꼬물꼬물 움직여요." },
+            { icon: <SVGS.Stage2 />, title: "챱챱 걷기!🐾🐾", message: "두 걸음째! 뇌가 '오? 먹는 거보다 재밌는데?' 하는 중이에요." },
+            { icon: <SVGS.Stage3 />, title: "나만 믿으라냥!🐱", message: "고양이가 당신을 쳐다보네요! '오, 꽤 하는데?'라고 말하는 것 같아요." },
+            { icon: <SVGS.Stage4 />, title: "거의 다 왔다냥!🐈", message: "고양이가 기분 좋게 갸르릉거려요. 당신은 이제 통제의 달인!" },
+            { icon: <SVGS.Stage5 />, title: "완벽하다냥!❤️", message: "고양이가 당신의 마음을 꼬옥 안아줄게요. 진짜 최고예요!" }
+        ];
+
+        const BASE_MISSIONS = [
+            { id: 'water', title: "물 마시기", desc: "시원한 물 한 잔을 가져와 입안을 적시며 천천히 마셔보세요.", icon: <SVGS.Water /> },
+            { id: 'ear', title: "귀 조물조물", desc: "양쪽 귓바퀴를 위아래로 꾹꾹 누르며 1분간 마사지하세요.", icon: <SVGS.Ear /> },
+            { id: 'color', title: "색깔 찾기", desc: "주변에서 '{color}' 물건 5개를 찾아 이름을 조용히 불러보세요.", icon: <SVGS.Camera /> },
+            { id: 'rainbow', title: "무지개 찾기", desc: "빨주노초파남보, 무지개색 물건을 하나씩 손가락으로 가리키세요.", icon: <SVGS.Rainbow /> },
+            { id: 'math', title: "거꾸로 빼기", desc: "숫자 100에서 {step}을(를) 계속 빼면서 0이 될 때까지 말하세요.", icon: <SVGS.Math /> },
+            { id: 'move', title: "몸 움직이기", desc: "제자리 걸음 50번을 하며 몸의 감각에 집중해 보세요.", icon: <SVGS.Step /> },
+            { id: 'phone', title: "사진 정리", desc: "폰 갤러리를 열어 불필요한 사진 10장만 지워보세요.", icon: <SVGS.Phone /> },
+            { id: 'care', title: "핸드크림", desc: "핸드크림을 바르고 손가락 마디마디를 꾹꾹 누르며 향기를 맡으세요.", icon: <SVGS.Care /> },
+            { id: 'mint', title: "양치하기", desc: "양치를 하거나 민트 껌을 씹어 입안을 상쾌하게 만드세요.", icon: <SVGS.Mint /> },
+            { id: 'breath', title: "심호흡 5번", desc: "크게 기지개를 켜고 깊은 심호흡을 5번 하세요. 잘 해냈습니다!", icon: <SVGS.Breath /> }
+        ];
+
+        function App() {
+            const [view, setView] = useState('HOME');
+            const [shuffledMissions, setShuffledMissions] = useState([]);
+            const [currentIdx, setCurrentIdx] = useState(0);
+            const [timeLeft, setTimeLeft] = useState(600);
+            const [isActive, setIsActive] = useState(false);
+            const [history, setHistory] = useState([]);
+
+            useEffect(() => {
+                const saved = localStorage.getItem('protect_history');
+                if (saved) setHistory(JSON.parse(saved));
+            }, []);
+
+            useEffect(() => {
+                let timer;
+                if (isActive && timeLeft > 0) {
+                    timer = setInterval(() => setTimeLeft(p => p - 1), 1000);
+                } else if (timeLeft === 0) {
+                    handleFinalSuccess();
+                }
+                return () => clearInterval(timer);
+            }, [isActive, timeLeft]);
+
+            const triggerHaptic = (p) => { if (window.navigator?.vibrate) navigator.vibrate(p); };
+
+            const handleSOS = () => {
+                const color = COLORS_LIST[Math.floor(Math.random() * COLORS_LIST.length)];
+                const step = MATH_STEPS[Math.floor(Math.random() * MATH_STEPS.length)];
+                let tempMissions = BASE_MISSIONS.map(m => ({
+                    ...m,
+                    desc: m.desc.replace('{color}', color).replace('{step}', step)
+                }));
+                for (let i = tempMissions.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [tempMissions[i], tempMissions[j]] = [tempMissions[j], tempMissions[i]];
+                }
+                setShuffledMissions(tempMissions);
+                triggerHaptic(60);
+                setTimeLeft(600);
+                setCurrentIdx(0);
+                setIsActive(true);
+                setView('MANUAL');
+            };
+
+            const handleMissionComplete = () => {
+                triggerHaptic([40, 30, 40]);
+                confetti({ particleCount: 60, spread: 50, origin: { y: 0.8 } });
+                if (currentIdx < shuffledMissions.length - 1) {
+                    setView('INTER_SUCCESS');
+                    setTimeout(() => {
+                        setCurrentIdx(p => p + 1);
+                        setView('MANUAL');
+                    }, 1800);
+                } else {
+                    handleFinalSuccess();
+                }
+            };
+
+            const handleFinalSuccess = () => {
+                setIsActive(false);
+                triggerHaptic([100, 50, 100, 50, 200]);
+                confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                const today = new Date().toDateString();
+                if (!history.includes(today)) {
+                    const newHistory = [...history, today];
+                    setHistory(newHistory);
+                    localStorage.setItem('protect_history', JSON.stringify(newHistory));
+                }
+                setView('FINAL_SUCCESS');
+            };
+
+            const formatTime = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
+            const getStageData = () => SUCCESS_STAGES[Math.min(Math.floor(currentIdx / 2), 4)];
+
+            const renderCalendar = () => {
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = now.getMonth();
+                const lastDay = new Date(year, month + 1, 0).getDate();
+                const days = [];
+                for (let i = 1; i <= lastDay; i++) {
+                    const dateStr = new Date(year, month, i).toDateString();
+                    days.push(<div key={i} className={`calendar-day ${history.includes(dateStr) ? 'success-day' : ''}`}>{i}</div>);
+                }
+                return days;
+            };
+
+            return (
+                <div className="app-frame">
+                    {view === 'HOME' && (
+                        <div className="screen fade-in" style={{ justifyContent: 'center', padding: '20px' }}>
+                            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                                <h1 style={{ fontSize: '24px', fontWeight: '900', color: '#1e293b' }}>마음이 흔들리나요?</h1>
+                                <p style={{ color: '#64748b', fontSize: '14px', marginTop: '5px' }}>지금 버튼을 누르면 10분 매뉴얼이 시작됩니다.</p>
+                            </div>
+                            <button className="btn-sos" onClick={handleSOS}>도와줘</button>
+                            <div style={{ marginTop: '20px' }}>
+                                <p style={{ fontSize: '11px', color: '#94a3b8', textAlign: 'center', fontWeight: 'bold', marginBottom: '8px' }}>이번 달 성공 기록</p>
+                                <div className="calendar-grid">{renderCalendar()}</div>
+                            </div>
+                        </div>
+                    )}
+
+                    {view === 'MANUAL' && shuffledMissions[currentIdx] && (
+                        <div className="screen manual-screen fade-in">
+                            <div style={{ padding: '30px 25px 15px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                    <span style={{ fontSize: '10px', fontWeight: 'bold', color: '#93c5fd', letterSpacing: '1px' }}>ACTIVE</span>
+                                    <span style={{ fontSize: '36px', fontWeight: '900', color: '#22d3ee', fontFamily: 'monospace' }}>{formatTime(timeLeft)}</span>
+                                </div>
+                                <div className="progress-bar-bg"><div className="progress-fill" style={{ width: `${(timeLeft/600)*100}%` }}></div></div>
+                            </div>
+                            <div className="mission-card">
+                                <div style={{ marginBottom: '15px' }}>{shuffledMissions[currentIdx].icon}</div>
+                                <h2 style={{ fontSize: '22px', fontWeight: '900', color: '#1a237e' }}>{shuffledMissions[currentIdx].title}</h2>
+                                <p style={{ fontSize: '16px', lineHeight: '1.5', color: '#475569', margin: '10px 0', wordBreak: 'keep-all' }}>"{shuffledMissions[currentIdx].desc}"</p>
+                                <div style={{ marginTop: '15px' }}><span style={{ background: '#eff6ff', color: '#2563eb', padding: '5px 12px', borderRadius: '20px', fontSize: '11px', fontWeight: 'bold' }}>Step {currentIdx + 1} / 10</span></div>
+                            </div>
+                            <button className="btn-next" onClick={handleMissionComplete}>미션 완료!</button>
+                        </div>
+                    )}
+
+                    {view === 'INTER_SUCCESS' && (
+                        <div className="screen inter-success-screen fade-in">
+                            <div className="bounce" style={{ marginBottom: '20px', display: 'flex', justifyContent: 'center' }}>
+                                {getStageData().icon}
+                            </div>
+                            <div style={{ padding: '0 25px' }}>
+                                <h2 style={{ fontSize: '18px', fontWeight: '900', color: '#059669', marginBottom: '10px' }}>{getStageData().title}</h2>
+                                <p style={{ fontSize: '16px', color: '#374151', fontWeight: 'bold', lineHeight: '1.6', wordBreak: 'keep-all' }}>
+                                    {getStageData().message}
+                                </p>
+                            </div>
+                            <p style={{ marginTop: '30px', fontSize: '12px', color: '#9ca3af' }}>잠시 후 다음 단계로...</p>
+                        </div>
+                    )}
+
+                    {view === 'FINAL_SUCCESS' && (
+                        <div className="screen final-screen fade-in">
+                            <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#451a03' }}>승리했다냥! 🎉</h1>
+                            <p style={{ fontSize: '17px', fontWeight: 'bold', color: '#78350f', margin: '20px 0 30px' }}>당신은 어떤 충동보다 강력합니다.<br/>오늘의 나를 지켜냈어요!</p>
+                            <div className="bounce" style={{ margin: '10px 0' }}><SVGS.Trophy /></div>
+                            <div style={{ marginTop: '20px', width: '100%', padding: '0 20px' }}>
+                                <div className="calendar-grid" style={{ background: 'rgba(255,255,255,0.4)', border: 'none' }}>{renderCalendar()}</div>
+                            </div>
+                            <button className="btn-next" style={{ background: 'white', width: '90%', color: '#1e293b' }} onClick={() => setView('HOME')}>메인으로 가기</button>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

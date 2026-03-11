@@ -1,0 +1,17 @@
+{
+  "name": "마음 보호 10분 매뉴얼",
+  "short_name": "마음보호",
+  "description": "식욕 억제와 마음 안정을 돕는 10분 가이드",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#e0e7ff",
+  "theme_color": "#5c6bc0",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1864/1864514.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

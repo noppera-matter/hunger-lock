@@ -1,15 +1,15 @@
 {
   "name": "마음 보호 10분 매뉴얼",
   "short_name": "마음보호",
-  "description": "식욕 억제와 마음 안정을 돕는 10분 가이드",
+  "description": "식욕 억제와 마음 안정을 돕는 고양이 컨셉 가이드냥!",
   "start_url": "/index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#e0e7ff",
   "theme_color": "#5c6bc0",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/1864/1864514.png",
-      "sizes": "512x512",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIH r="512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }

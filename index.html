@@ -378,6 +378,15 @@
             { title: "귀 조물조물", desc: "귓바퀴를 위아래로 꾹꾹 주물러보세요.", icon: <SVGS.Ear /> }
         ];
 
+        /* 선택창에 들어갈 데이터 배열 */
+        const TEMPTATIONS = [
+            { id: 'food', label: '🍕 야식 참기', msg: '꼬르륵 소리는 무시하라냥!' },
+            { id: 'shop', label: '💳 결제 참기', msg: '택배 박스보다 집사 무릎이 좋다냥!' },
+            { id: 'phone', label: '📱 폰 내려놓기', msg: '작은 화면 대신 나를 보라냥!' },
+            { id: 'anger', label: '🔥 홧병 다스리기', msg: '하악질 대신 심호흡이다냥!' },
+            { id: 'lazy', label: '🛌 미루지 않기', msg: '지금 움직여야 나중에 꿀잠 잔다냥!' }
+        ];
+
         const App = () => {
             const [view, setView] = useState('HOME');
             const [missions, setMissions] = useState([]);

@@ -1,110 +1,372 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1864/1864514.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1864/1864514.png">
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="마음보호">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="마음보호">
 
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMDAiIGZpbGw9IiM1YzZiYzAiLz48cGF0aCBkPSJNMjU2IDEyMGMtNTUgMC0xMDAgNDUtMTAwIDEwMCAwIDI4IDExIDUzIDI5IDcyLTM4IDQyLTYxIDEwMS02MSAxNjdoMjY0YzAtNjYtMjMtMTI1LTYxLTE2NyAxOC0xOSAyOS00NCAyOS03MiAwLTU1LTQ1LTEwMC0xMDAtMTAweiIgZmlsbD0iI2ZmY2M4MCIvPjxwYXRoIGQ9Ik0xMjAgMjgwIEwyMCA2MCBMMjIwIDE2MCBNMzkyIDI4MCBMNDkyIDYwIEwyOTIgMTYwIiBmaWxsPSIjMWUyOTNiIi8+PHBhdGggZD0iTTI1NiA0MDBsLTMwIDMwYTM5IDM5IDAgMCAwIDYwIDAiIGZpbGw9IiNmNDcyYjYiIC8+PGNpcmNsZSBjeD0iMjE2IiBjeT0iMjI2IiByPSIxOCIgZmlsbD0iIzFlMjkzYiIvPjxjaXJjbGUgY3g9IjI5NiIgY3k9IjIyNiIgcj0iMTgiIGZpbGw9IiMxZTI5M2IiLz48L3N2Zz4=">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMDAiIGZpbGw9IiM1YzZiYzAiLz48cGF0aCBkPSJNMjU2IDEyMGMtNTUgMC0xMDAgNDUtMTAwIDEwMCAwIDI4IDExIDUzIDI5IDcyLTM4IDQyLTYxIDEwMS02MSAxNjdoMjY0YzAtNjYtMjMtMTI1LTYxLTE2NyAxOC0xOSAyOS00NCAyOS03MiAwLTU1LTQ1LTEwMC0xMDAtMTAweiIgZmlsbD0iI2ZmY2M4MCIvPjxwYXRoIGQ9Ik0xMjAgMjgwIEwyMCA2MCBMMjIwIDE2MCBNMzkyIDI4MCBMNDkyIDYwIEwyOTIgMTYwIiBmaWxsPSIjMWUyOTNiIi8+PHBhdGggZD0iTTI1NiA0MDBsLTMwIDMwYTM5IDM5IDAgMCAwIDYwIDAiIGZpbGw9IiNmNDcyYjYiIC8+PGNpcmNsZSBjeD0iMjE2IiBjeT0iMjI2IiByPSIxOCIgZmlsbD0iIzFlMjkzYiIvPjxjaXJjbGUgY3g9IjI5NiIgY3k9IjIyNiIgcj0iMTgiIGZpbGw9IiMxZTI5M2IiLz48L3N2Zz4=">
 
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js');
-    });
-  }
-</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>마음 보호 10분 매뉴얼</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --primary: #1e3a8a; --accent: #f59e0b; --text: #0f172a; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, 'Nanum Gothic', sans-serif; }
-        body { margin: 0; background: linear-gradient(135deg, #e0e7ff 0%, #fef3c7 100%); height: 100dvh; display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--text); }
-        #root { width: 100%; max-width: 450px; height: 100%; padding: 15px; display: flex; align-items: center; justify-content: center; }
-        .app-frame { width: 100%; height: 95%; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; border: 2px solid white; position: relative; }
-        
+        :root {
+            --primary: #1e3a8a;
+            --accent: #f59e0b;
+            --text: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, 'Nanum Gothic', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #e0e7ff 0%, #fef3c7 100%);
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--text);
+        }
+
+        #root {
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-frame {
+            width: 100%;
+            height: 95%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid white;
+            position: relative;
+        }
+
         /* 레이아웃 엔진 */
-        .screen { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .center-screen { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; }
-        
+        .screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .center-screen {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
         /* 타이머 & 프로그레스 바 */
-        .timer-header { padding: 30px 25px 15px; background: #1e293b; color: white; border-radius: 0 0 30px 30px; }
-        .timer-val { font-size: 36px; font-weight: 900; color: #22d3ee; font-family: monospace; }
-        .prog-bg { height: 10px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 15px; overflow: hidden; }
-        .prog-fill { height: 100%; background: var(--accent); transition: width 1s linear; }
+        .timer-header {
+            padding: 30px 25px 15px;
+            background: #1e293b;
+            color: white;
+            border-radius: 0 0 30px 30px;
+        }
+
+        .timer-val {
+            font-size: 36px;
+            font-weight: 900;
+            color: #22d3ee;
+            font-family: monospace;
+        }
+
+        .prog-bg {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .prog-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 1s linear;
+        }
 
         /* 미션 카드 */
-        .mission-card { background: white; margin: 20px; border-radius: 30px; padding: 35px 20px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 320px; }
-        .success-card { background: white; width: 100%; border-radius: 30px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-top: 25px; }
-        
-        .btn-action { background: var(--primary); color: white; border: none; padding: 20px; border-radius: 20px; font-size: 18px; font-weight: 900; margin: 10px 20px 20px; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 15px rgba(92, 107, 192, 0.2); width: calc(100% - 40px); }
-        .btn-action:active { transform: scale(0.96); }
+        .mission-card {
+            background: white;
+            margin: 20px;
+            border-radius: 30px;
+            padding: 35px 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 320px;
+        }
+
+        .success-card {
+            background: white;
+            width: 100%;
+            border-radius: 30px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-top: 25px;
+        }
+
+        .btn-action {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 900;
+            margin: 10px 20px 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 15px rgba(92, 107, 192, 0.2);
+            width: calc(100% - 40px);
+        }
+
+        .btn-action:active {
+            transform: scale(0.96);
+        }
 
         /* 2048 보드 */
-        .game-board { background: #bbada0; width: 280px; height: 280px; border-radius: 12px; padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px auto; touch-action: none; }
-        .tile { width: 58px; height: 58px; background: rgba(238, 228, 218, 0.35); border-radius: 6px; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 18px; color: #776e65; }
-        .tile-2 { background: #eee4da; } .tile-4 { background: #ede0c8; } .tile-8 { background: #f2b179; color: white; }
+        .game-board {
+            background: #bbada0;
+            width: 280px;
+            height: 280px;
+            border-radius: 12px;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 20px auto;
+            touch-action: none;
+        }
+
+        .tile {
+            width: 58px;
+            height: 58px;
+            background: rgba(238, 228, 218, 0.35);
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 900;
+            font-size: 18px;
+            color: #776e65;
+        }
+
+        .tile-2 {
+            background: #eee4da;
+        }
+
+        .tile-4 {
+            background: #ede0c8;
+        }
+
+        .tile-8 {
+            background: #f2b179;
+            color: white;
+        }
 
         /* 스도쿠 보드 */
-        .sudoku-board { background: #bbada0; width: 300px; height: 300px; border-radius: 10px; padding: 5px; display: grid; grid-template-columns: repeat(9, 1fr); gap: 2px; margin: 20px auto; }
-        .sudoku-cell { background: #eee4da; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 16px; color: #776e65; cursor: pointer; }
-        .sudoku-cell.fixed { background: #cdc1b4; }
-        .sudoku-cell.selected { background: #f2b179; color: white; }
-        .sudoku-numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 300px; margin: 0 auto; }
-        .sudoku-num-btn { background: var(--primary); color: white; border: none; padding: 10px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .sudoku-num-btn:active { transform: scale(0.95); }
+        .sudoku-board {
+            background: #bbada0;
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            padding: 5px;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 2px;
+            margin: 20px auto;
+        }
 
-        .fade-in { animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .bounce { animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .wobble { animation: wobble 1.5s infinite ease-in-out; display: inline-block; transform-origin: bottom center; }
-        @keyframes wobble { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
+        .sudoku-cell {
+            background: #eee4da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: #776e65;
+            cursor: pointer;
+        }
+
+        .sudoku-cell.fixed {
+            background: #cdc1b4;
+        }
+
+        .sudoku-cell.selected {
+            background: #f2b179;
+            color: white;
+        }
+
+        .sudoku-numpad {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .sudoku-num-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .sudoku-num-btn:active {
+            transform: scale(0.95);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .wobble {
+            animation: wobble 1.5s infinite ease-in-out;
+            display: inline-block;
+            transform-origin: bottom center;
+        }
+
+        @keyframes wobble {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(-10deg);
+            }
+
+            75% {
+                transform: rotate(10deg);
+            }
+        }
     </style>
 </head>
+
 <body>
     <div id="root"></div>
     <script type="text/babel">
         const { useState, useEffect, useCallback } = React;
 
         const SVGS = {
-            Stage1: () => <svg width="120" height="120" viewBox="0 0 24 24" fill="#f472b6"><circle cx="12" cy="14" r="5"/><circle cx="7" cy="9" r="2"/><circle cx="10" cy="6" r="2"/><circle cx="14" cy="6" r="2"/><circle cx="17" cy="9" r="2"/></svg>,
-            Stage5: () => <svg width="140" height="140" viewBox="0 0 24 24"><path d="M12 5c-1.6 0-3 1.3-3 3 0 .8.3 1.5.8 2.1C8.7 11.2 8 13.1 8 15c0 3.3 2.5 5 4 5s4-1.7 4-5c0-1.9-.7-3.8-1.8-4.9.5-.6.8-1.3.8-2.1 0-1.7-1.4-3-3-3z" fill="#1e293b"/><path d="M12 14l-1.5 1.5a2 2 0 0 0 3 0L12 14z" fill="#ef4444" /><circle cx="10.5" cy="8.5" r="0.8" fill="white"/><circle cx="13.5" cy="8.5" r="0.8" fill="white"/></svg>,
-            Breath: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2"><path d="M2 12h10m10 0h-2M7 16h10M5 8h12"/></svg>,
-            Water: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>,
-            Find: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2"><circle cx="12" cy="13" r="4"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>,
-            Move: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2"><path d="M4 16v4h4m-4 0l16-16"/></svg>,
-            Ear: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3 3 0 1 1-6 0"/></svg>
+            Stage1: () => <svg width="120" height="120" viewBox="0 0 24 24" fill="#f472b6"><circle cx="12" cy="14" r="5" /><circle cx="7" cy="9" r="2" /><circle cx="10" cy="6" r="2" /><circle cx="14" cy="6" r="2" /><circle cx="17" cy="9" r="2" /></svg>,
+            Stage5: () => (
+                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* 고양이 얼굴 전체 */}
+                    <path d="M12 21C16.4183 21 20 17.4183 20 13C20 8.58172 16.4183 5 12 5C7.58172 5 4 8.58172 4 13C4 17.4183 7.58172 21 12 21Z" fill="#1e293b"/>
+                    {/* 왼쪽 귀 */}
+                    <path d="M7 6L4 2L3 8" fill="#1e293b" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    {/* 오른쪽 귀 */}
+                    <path d="M17 6L20 2L21 8" fill="#1e293b" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    {/* 눈 */}
+                    <circle cx="9" cy="13" r="1.5" fill="white"/>
+                    <circle cx="15" cy="13" r="1.5" fill="white"/>
+                    {/* 코와 입 */}
+                    <path d="M12 15V17M12 17C11 17 10 16.5 10 16M12 17C13 17 14 16.5 14 16" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+                </svg>
+            ),
+            Breath: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2"><path d="M2 12h10m10 0h-2M7 16h10M5 8h12" /></svg>,
+            Water: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg>,
+            Find: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2"><circle cx="12" cy="13" r="4" /><rect width="18" height="18" x="3" y="3" rx="2" /></svg>,
+            Move: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2"><path d="M4 16v4h4m-4 0l16-16" /></svg>,
+            Ear: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3 3 0 1 1-6 0" /></svg>
         };
 
         const SUDOKU_PUZZLE = [
-            5,3,0,0,7,0,0,0,0,
-            6,0,0,1,9,5,0,0,0,
-            0,9,8,0,0,0,0,6,0,
-            8,0,0,0,6,0,0,0,3,
-            4,0,0,8,0,3,0,0,1,
-            7,0,0,0,2,0,0,0,6,
-            0,6,0,0,0,0,2,8,0,
-            0,0,0,4,1,9,0,0,5,
-            0,0,0,0,8,0,0,7,9
+            5, 3, 0, 0, 7, 0, 0, 0, 0,
+            6, 0, 0, 1, 9, 5, 0, 0, 0,
+            0, 9, 8, 0, 0, 0, 0, 6, 0,
+            8, 0, 0, 0, 6, 0, 0, 0, 3,
+            4, 0, 0, 8, 0, 3, 0, 0, 1,
+            7, 0, 0, 0, 2, 0, 0, 0, 6,
+            0, 6, 0, 0, 0, 0, 2, 8, 0,
+            0, 0, 0, 4, 1, 9, 0, 0, 5,
+            0, 0, 0, 0, 8, 0, 0, 7, 9
         ];
         const SUDOKU_SOLUTION = [
-            5,3,4,6,7,8,9,1,2,
-            6,7,2,1,9,5,3,4,8,
-            1,9,8,3,4,2,5,6,7,
-            8,5,9,7,6,1,4,2,3,
-            4,2,6,8,5,3,7,9,1,
-            7,1,3,9,2,4,8,5,6,
-            9,6,1,5,3,7,2,8,4,
-            2,8,7,4,1,9,6,3,5,
-            3,4,5,2,8,6,1,7,9
+            5, 3, 4, 6, 7, 8, 9, 1, 2,
+            6, 7, 2, 1, 9, 5, 3, 4, 8,
+            1, 9, 8, 3, 4, 2, 5, 6, 7,
+            8, 5, 9, 7, 6, 1, 4, 2, 3,
+            4, 2, 6, 8, 5, 3, 7, 9, 1,
+            7, 1, 3, 9, 2, 4, 8, 5, 6,
+            9, 6, 1, 5, 3, 7, 2, 8, 4,
+            2, 8, 7, 4, 1, 9, 6, 3, 5,
+            3, 4, 5, 2, 8, 6, 1, 7, 9
         ];
 
         const MISSION_POOL = [
@@ -116,15 +378,6 @@
             { title: "귀 조물조물", desc: "귓바퀴를 위아래로 꾹꾹 주물러보세요.", icon: <SVGS.Ear /> }
         ];
 
-        /* 선택창에 들어갈 데이터 배열 */
-        const TEMPTATIONS = [
-            { id: 'food', label: '🍕 야식 참기', msg: '꼬르륵 소리는 무시하라냥!' },
-            { id: 'shop', label: '💳 결제 참기', msg: '택배 박스보다 집사 무릎이 좋다냥!' },
-            { id: 'phone', label: '📱 폰 내려놓기', msg: '작은 화면 대신 나를 보라냥!' },
-            { id: 'anger', label: '🔥 홧병 다스리기', msg: '하악질 대신 심호흡이다냥!' },
-            { id: 'lazy', label: '🛌 미루지 않기', msg: '지금 움직여야 나중에 꿀잠 잔다냥!' }
-        ];
-
         const App = () => {
             const [view, setView] = useState('HOME');
             const [missions, setMissions] = useState([]);
@@ -132,11 +385,11 @@
             const [timeLeft, setTimeLeft] = useState(600);
             const [board, setBoard] = useState(Array(16).fill(0));
             const [score, setScore] = useState(0);
-            
+
             const [sudokuBoard, setSudokuBoard] = useState([]);
             const [sudokuFixed, setSudokuFixed] = useState([]);
             const [sudokuSelected, setSudokuSelected] = useState(-1);
-            
+
             const [selectedTemp, setSelectedTemp] = useState('');
 
             useEffect(() => {
@@ -146,8 +399,8 @@
             }, [view, timeLeft]);
 
             const startStatic = () => {
-                const color = ["빨간색", "파란색", "노란색", "초록색", "보라색"][Math.floor(Math.random()*5)];
-                const num = [3, 4, 7, 8, 9][Math.floor(Math.random()*5)];
+                const color = ["빨간색", "파란색", "노란색", "초록색", "보라색"][Math.floor(Math.random() * 5)];
+                const num = [3, 4, 7, 8, 9][Math.floor(Math.random() * 5)];
                 // 6개 후보 중 5개를 랜덤 셔플하여 추출
                 const shuffled = [...MISSION_POOL].sort(() => Math.random() - 0.5).slice(0, 5).map(m => ({
                     ...m, desc: m.desc.replace('{color}', color).replace('{num}', num)
@@ -156,7 +409,7 @@
             };
 
             const handleStepComplete = () => {
-                if(idx < missions.length - 1) {
+                if (idx < missions.length - 1) {
                     setView('INTER_SUCCESS');
                     setTimeout(() => { setIdx(idx + 1); setView('STATIC'); }, 1500);
                 } else {
@@ -175,32 +428,32 @@
 
             const move = useCallback((dir) => {
                 let nb = [...board]; let moved = false; let sc = score;
-                const rot = (b) => { const r = Array(16).fill(0); for(let i=0; i<4; i++) for(let j=0; j<4; j++) r[j*4+(3-i)]=b[i*4+j]; return r; };
-                let rs = {'LEFT':0, 'UP':3, 'RIGHT':2, 'DOWN':1}[dir];
-                for(let i=0; i<rs; i++) nb = rot(nb);
-                for(let i=0; i<4; i++) {
-                    let r = nb.slice(i*4, i*4+4).filter(v=>v!==0);
-                    for(let j=0; j<r.length-1; j++) { if(r[j]===r[j+1]){ r[j]*=2; sc+=r[j]; r.splice(j+1, 1); moved=true; } }
-                    while(r.length<4) r.push(0);
-                    r.forEach((v, j) => { if(nb[i*4+j]!==v) moved=true; nb[i*4+j]=v; });
+                const rot = (b) => { const r = Array(16).fill(0); for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) r[j * 4 + (3 - i)] = b[i * 4 + j]; return r; };
+                let rs = { 'LEFT': 0, 'UP': 3, 'RIGHT': 2, 'DOWN': 1 }[dir];
+                for (let i = 0; i < rs; i++) nb = rot(nb);
+                for (let i = 0; i < 4; i++) {
+                    let r = nb.slice(i * 4, i * 4 + 4).filter(v => v !== 0);
+                    for (let j = 0; j < r.length - 1; j++) { if (r[j] === r[j + 1]) { r[j] *= 2; sc += r[j]; r.splice(j + 1, 1); moved = true; } }
+                    while (r.length < 4) r.push(0);
+                    r.forEach((v, j) => { if (nb[i * 4 + j] !== v) moved = true; nb[i * 4 + j] = v; });
                 }
-                for(let i=0; i<(4-rs)%4; i++) nb = rot(nb);
-                if(moved) { setBoard(spawn(nb)); setScore(sc); if(sc>=500) { confetti(); setView('FINAL_SUCCESS'); } }
+                for (let i = 0; i < (4 - rs) % 4; i++) nb = rot(nb);
+                if (moved) { setBoard(spawn(nb)); setScore(sc); if (sc >= 500) { confetti(); setView('FINAL_SUCCESS'); } }
             }, [board, score, spawn]);
 
             return (
                 <div className="app-frame">
                     {view === 'HOME' && (
                         <div className="center-screen fade-in">
-                            <div className="wobble" style={{marginBottom: '10px'}}><SVGS.Stage5 /></div>
-                            <h2 style={{color:'#1e3a8a', marginTop:'20px', fontSize: '24px'}}>
+                            <div className="wobble" style={{ marginBottom: '10px' }}><SVGS.Stage5 /></div>
+                            <h2 style={{ color: '#1e3a8a', marginTop: '20px', fontSize: '24px' }}>
                                 잠깐, 집사! 앞발 치워! 🐾
                             </h2>
-                            <p style={{color: '#64748b', marginBottom: '30px', lineHeight: '1.5'}}>
-                                지금 그 마음, 나랑 딱 10분만<br/> 
+                            <p style={{ color: '#64748b', marginBottom: '30px', lineHeight: '1.5' }}>
+                                지금 그 마음, 나랑 딱 10분만<br />
                                 다른 생각하면서 식혀보자냥.
                             </p>
-                            <button className="btn-action" style={{color: 'var(--accent)'}} onClick={() => setView('TEMP_SELECT')}>
+                            <button className="btn-action" style={{ color: 'var(--accent)' }} onClick={() => setView('TEMP_SELECT')}>
                                 마음 가다듬기 시작
                             </button>
                         </div>
@@ -208,13 +461,13 @@
 
                     {view === 'TEMP_SELECT' && (
                         <div className="center-screen fade-in">
-                            <h2 style={{marginBottom:'30px', color: '#1e3a8a'}}>오늘 무엇을 <br/>이겨내고 싶냥?</h2>
-                            <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: '10px'}}>
+                            <h2 style={{ marginBottom: '30px', color: '#1e3a8a' }}>오늘 무엇을 <br />이겨내고 싶냥?</h2>
+                            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                 {TEMPTATIONS.map(t => (
-                                    <button 
-                                        key={t.id} 
-                                        className="btn-action" 
-                                        style={{margin: '5px auto', background: 'white', color: 'var(--text)', border: '1px solid #ddd'}}
+                                    <button
+                                        key={t.id}
+                                        className="btn-action"
+                                        style={{ margin: '5px auto', background: 'white', color: 'var(--text)', border: '1px solid #ddd' }}
                                         onClick={() => {
                                             setSelectedTemp(t.msg);
                                             setView('SELECT');
@@ -229,14 +482,14 @@
 
                     {view === 'SELECT' && (
                         <div className="center-screen fade-in">
-                            <h2 style={{marginBottom:'40px'}}>방법을 골라줘!</h2>
+                            <h2 style={{ marginBottom: '40px' }}>방법을 골라줘!</h2>
                             <button className="btn-action" onClick={startStatic}>🧘 정적인 미션 (5단계)</button>
-                            <button className="btn-action" style={{background:'white', color:'var(--primary)', border:'2px solid var(--primary)'}} onClick={() => { setBoard(spawn(spawn(Array(16).fill(0)))); setScore(0); setView('GAME'); }}>🎮 2048 퍼즐</button>
-                            <button className="btn-action" style={{background:'#f59e0b', color:'white', border:'2px solid #f59e0b'}} onClick={() => { 
-                                setSudokuBoard([...SUDOKU_PUZZLE]); 
-                                setSudokuFixed(SUDOKU_PUZZLE.map(v => v !== 0)); 
-                                setSudokuSelected(-1); 
-                                setView('SUDOKU'); 
+                            <button className="btn-action" style={{ background: 'white', color: 'var(--primary)', border: '2px solid var(--primary)' }} onClick={() => { setBoard(spawn(spawn(Array(16).fill(0)))); setScore(0); setView('GAME'); }}>🎮 2048 퍼즐</button>
+                            <button className="btn-action" style={{ background: '#f59e0b', color: 'white', border: '2px solid #f59e0b' }} onClick={() => {
+                                setSudokuBoard([...SUDOKU_PUZZLE]);
+                                setSudokuFixed(SUDOKU_PUZZLE.map(v => v !== 0));
+                                setSudokuSelected(-1);
+                                setView('SUDOKU');
                             }}>🧩 3. 스도쿠 게임</button>
                         </div>
                     )}
@@ -244,18 +497,18 @@
                     {view === 'STATIC' && (
                         <div className="screen fade-in">
                             <div className="timer-header">
-                                <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-end'}}>
-                                    <span style={{fontSize:'12px', fontWeight:'bold', color:'#93c5fd'}}>KEEP GOING</span>
-                                    <div className="timer-val">{Math.floor(timeLeft/60)}:{(timeLeft%60).toString().padStart(2,'0')}</div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                                    <span style={{ fontSize: '12px', fontWeight: 'bold', color: '#93c5fd' }}>KEEP GOING</span>
+                                    <div className="timer-val">{Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}</div>
                                 </div>
-                                <div className="prog-bg"><div className="prog-fill" style={{width: `${(timeLeft/600)*100}%`}}></div></div>
-                                {selectedTemp && <div style={{textAlign: 'center', marginTop: '15px', color: '#93c5fd', fontWeight: 'bold', fontSize: '14px'}}>집사야, {selectedTemp}</div>}
+                                <div className="prog-bg"><div className="prog-fill" style={{ width: `${(timeLeft / 600) * 100}%` }}></div></div>
+                                {selectedTemp && <div style={{ textAlign: 'center', marginTop: '15px', color: '#93c5fd', fontWeight: 'bold', fontSize: '14px' }}>집사야, {selectedTemp}</div>}
                             </div>
                             <div className="mission-card">
                                 {missions[idx]?.icon}
-                                <h2 style={{color:'#1e3a8a', margin:'20px 0 10px'}}>{missions[idx]?.title}</h2>
-                                <p style={{lineHeight:'1.6', fontSize:'18px'}} dangerouslySetInnerHTML={{__html: missions[idx]?.desc}}></p>
-                                <span style={{fontSize:'12px', color:'#94a3b8', marginTop:'15px'}}>Step {idx+1} / 5</span>
+                                <h2 style={{ color: '#1e3a8a', margin: '20px 0 10px' }}>{missions[idx]?.title}</h2>
+                                <p style={{ lineHeight: '1.6', fontSize: '18px' }} dangerouslySetInnerHTML={{ __html: missions[idx]?.desc }}></p>
+                                <span style={{ fontSize: '12px', color: '#94a3b8', marginTop: '15px' }}>Step {idx + 1} / 5</span>
                             </div>
                             <button className="btn-action" onClick={handleStepComplete}>미션 완료</button>
                         </div>
@@ -265,8 +518,8 @@
                         <div className="center-screen fade-in">
                             <div className="bounce"><SVGS.Stage1 /></div>
                             <div className="success-card">
-                                <h2 style={{color:'#059669', margin:'0 0 10px'}}>젤리 발견!🐾</h2>
-                                <p>앗, 귀여운 발바닥 젤리 발견!<br/>당신의 의지가 움직이기 시작했어요.</p>
+                                <h2 style={{ color: '#059669', margin: '0 0 10px' }}>젤리 발견!🐾</h2>
+                                <p>앗, 귀여운 발바닥 젤리 발견!<br />당신의 의지가 움직이기 시작했어요.</p>
                             </div>
                         </div>
                     )}
@@ -274,56 +527,56 @@
                     {view === 'FINAL_SUCCESS' && (
                         <div className="center-screen fade-in">
                             <div className="bounce"><SVGS.Stage5 /></div>
-                            <div className="success-card" style={{marginBottom:'30px'}}>
-                                <h2 style={{color:'#b45309', margin:'0 0 10px'}}>최고다냥!❤️</h2>
-                                <p>고양이가 당신을 꼬옥 안아줘요!<br/>해낸 당신이 진짜 최고예요!</p>
+                            <div className="success-card" style={{ marginBottom: '30px' }}>
+                                <h2 style={{ color: '#b45309', margin: '0 0 10px' }}>최고다냥!❤️</h2>
+                                <p>고양이가 당신을 꼬옥 안아줘요!<br />해낸 당신이 진짜 최고예요!</p>
                             </div>
                             <button className="btn-action" onClick={() => setView('HOME')}>메인으로 돌아가기</button>
                         </div>
                     )}
 
                     {view === 'GAME' && (
-                        <div className="screen fade-in" style={{paddingTop:'40px'}}>
-                            <div style={{textAlign:'center'}}>
-                                {selectedTemp && <div style={{color: '#1e3a8a', fontWeight: 'bold', marginBottom: '15px', fontSize: '16px'}}>집사야, {selectedTemp}</div>}
+                        <div className="screen fade-in" style={{ paddingTop: '40px' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                {selectedTemp && <div style={{ color: '#1e3a8a', fontWeight: 'bold', marginBottom: '15px', fontSize: '16px' }}>집사야, {selectedTemp}</div>}
                                 <h3>Score: {score} / 500</h3>
-                                <div className="game-board" onTouchStart={(e)=>window.ts={x:e.touches[0].clientX,y:e.touches[0].clientY}}
-                                     onTouchEnd={(e)=>{
-                                         const dx=e.changedTouches[0].clientX-window.ts.x, dy=e.changedTouches[0].clientY-window.ts.y;
-                                         if(Math.abs(dx)>30||Math.abs(dy)>30) move(Math.abs(dx)>Math.abs(dy)?(dx>0?'RIGHT':'LEFT'):(dy>0?'DOWN':'UP'));
-                                     }}>{board.map((v, i) => <div key={i} className={`tile tile-${v}`}>{v||''}</div>)}</div>
+                                <div className="game-board" onTouchStart={(e) => window.ts = { x: e.touches[0].clientX, y: e.touches[0].clientY }}
+                                    onTouchEnd={(e) => {
+                                        const dx = e.changedTouches[0].clientX - window.ts.x, dy = e.changedTouches[0].clientY - window.ts.y;
+                                        if (Math.abs(dx) > 30 || Math.abs(dy) > 30) move(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'RIGHT' : 'LEFT') : (dy > 0 ? 'DOWN' : 'UP'));
+                                    }}>{board.map((v, i) => <div key={i} className={`tile tile-${v}`}>{v || ''}</div>)}</div>
                             </div>
-                            <button className="btn-action" style={{background:'#94a3b8'}} onClick={()=>setView('HOME')}>그만두기</button>
+                            <button className="btn-action" style={{ background: '#94a3b8' }} onClick={() => setView('HOME')}>그만두기</button>
                         </div>
                     )}
 
                     {view === 'SUDOKU' && (
-                        <div className="screen fade-in" style={{paddingTop:'20px'}}>
-                            <div style={{textAlign:'center'}}>
-                                {selectedTemp && <div style={{color: '#1e3a8a', fontWeight: 'bold', margin: '20px 0 10px', fontSize: '16px'}}>집사야, {selectedTemp}</div>}
-                                <h3 style={{margin:'10px 0'}}>스도쿠 퍼즐</h3>
+                        <div className="screen fade-in" style={{ paddingTop: '20px' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                {selectedTemp && <div style={{ color: '#1e3a8a', fontWeight: 'bold', margin: '20px 0 10px', fontSize: '16px' }}>집사야, {selectedTemp}</div>}
+                                <h3 style={{ margin: '10px 0' }}>스도쿠 퍼즐</h3>
                                 <div className="sudoku-board">
                                     {sudokuBoard.map((val, i) => (
-                                        <div key={i} 
-                                             className={`sudoku-cell ${sudokuFixed[i] ? 'fixed' : ''} ${sudokuSelected === i ? 'selected' : ''}`}
-                                             style={{
-                                                 borderRight: i % 3 === 2 && i % 9 !== 8 ? '2px solid #776e65' : 'none',
-                                                 borderBottom: Math.floor(i / 9) % 3 === 2 && Math.floor(i / 9) !== 8 ? '2px solid #776e65' : 'none'
-                                             }}
-                                             onClick={() => !sudokuFixed[i] && setSudokuSelected(i)}>
+                                        <div key={i}
+                                            className={`sudoku-cell ${sudokuFixed[i] ? 'fixed' : ''} ${sudokuSelected === i ? 'selected' : ''}`}
+                                            style={{
+                                                borderRight: i % 3 === 2 && i % 9 !== 8 ? '2px solid #776e65' : 'none',
+                                                borderBottom: Math.floor(i / 9) % 3 === 2 && Math.floor(i / 9) !== 8 ? '2px solid #776e65' : 'none'
+                                            }}
+                                            onClick={() => !sudokuFixed[i] && setSudokuSelected(i)}>
                                             {val !== 0 ? val : ''}
                                         </div>
                                     ))}
                                 </div>
                                 <div className="sudoku-numpad">
-                                    {[1,2,3,4,5,6,7,8,9,'지우기'].map(num => (
+                                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, '지우기'].map(num => (
                                         <button key={num} className="sudoku-num-btn" onClick={() => {
-                                            if(sudokuSelected !== -1 && !sudokuFixed[sudokuSelected]) {
+                                            if (sudokuSelected !== -1 && !sudokuFixed[sudokuSelected]) {
                                                 const nb = [...sudokuBoard];
                                                 nb[sudokuSelected] = num === '지우기' ? 0 : num;
                                                 setSudokuBoard(nb);
-                                                if(nb.join('') === SUDOKU_SOLUTION.join('')) {
-                                                    confetti({ particleCount: 150, spread: 70 }); 
+                                                if (nb.join('') === SUDOKU_SOLUTION.join('')) {
+                                                    confetti({ particleCount: 150, spread: 70 });
                                                     setView('FINAL_SUCCESS');
                                                 }
                                             }
@@ -331,7 +584,7 @@
                                     ))}
                                 </div>
                             </div>
-                            <button className="btn-action" style={{background:'#94a3b8', marginTop: '20px'}} onClick={()=>setView('HOME')}>그만두기</button>
+                            <button className="btn-action" style={{ background: '#94a3b8', marginTop: '20px' }} onClick={() => setView('HOME')}>그만두기</button>
                         </div>
                     )}
                 </div>
@@ -342,4 +595,5 @@
         root.render(<App />);
     </script>
 </body>
+
 </html>

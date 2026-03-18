@@ -327,16 +327,16 @@
             Stage5: () => (
                 <svg width="140" height="140" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     {/* 고양이 얼굴 전체 */}
-                    <path d="M12 21C16.4183 21 20 17.4183 20 13C20 8.58172 16.4183 5 12 5C7.58172 5 4 8.58172 4 13C4 17.4183 7.58172 21 12 21Z" fill="#1e293b"/>
+                    <path d="M12 21C16.4183 21 20 17.4183 20 13C20 8.58172 16.4183 5 12 5C7.58172 5 4 8.58172 4 13C4 17.4183 7.58172 21 12 21Z" fill="#1e293b" />
                     {/* 왼쪽 귀 */}
-                    <path d="M7 6L4 2L3 8" fill="#1e293b" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M7 6L4 2L3 8" fill="#1e293b" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     {/* 오른쪽 귀 */}
-                    <path d="M17 6L20 2L21 8" fill="#1e293b" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M17 6L20 2L21 8" fill="#1e293b" stroke="#1e293b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     {/* 눈 */}
-                    <circle cx="9" cy="13" r="1.5" fill="white"/>
-                    <circle cx="15" cy="13" r="1.5" fill="white"/>
+                    <circle cx="9" cy="13" r="1.5" fill="white" />
+                    <circle cx="15" cy="13" r="1.5" fill="white" />
                     {/* 코와 입 */}
-                    <path d="M12 15V17M12 17C11 17 10 16.5 10 16M12 17C13 17 14 16.5 14 16" stroke="white" strokeWidth="1" strokeLinecap="round"/>
+                    <path d="M12 15V17M12 17C11 17 10 16.5 10 16M12 17C13 17 14 16.5 14 16" stroke="white" strokeWidth="1" strokeLinecap="round" />
                 </svg>
             ),
             Breath: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2"><path d="M2 12h10m10 0h-2M7 16h10M5 8h12" /></svg>,
@@ -581,12 +581,23 @@
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, '지우기'].map(num => (
                                         <button key={num} className="sudoku-num-btn" onClick={() => {
                                             if (sudokuSelected !== -1 && !sudokuFixed[sudokuSelected]) {
-                                                const nb = [...sudokuBoard];
-                                                nb[sudokuSelected] = num === '지우기' ? 0 : num;
-                                                setSudokuBoard(nb);
-                                                if (nb.join('') === SUDOKU_SOLUTION.join('')) {
-                                                    confetti({ particleCount: 150, spread: 70 });
-                                                    setView('FINAL_SUCCESS');
+                                                if (num === '지우기') {
+                                                    const nb = [...sudokuBoard];
+                                                    nb[sudokuSelected] = 0;
+                                                    setSudokuBoard(nb);
+                                                } else if (num === SUDOKU_SOLUTION[sudokuSelected]) {
+                                                    const nb = [...sudokuBoard];
+                                                    nb[sudokuSelected] = num;
+                                                    setSudokuBoard(nb);
+                                                    confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 } });
+                                                    if (nb.join('') === SUDOKU_SOLUTION.join('')) {
+                                                        setTimeout(() => {
+                                                            confetti({ particleCount: 150, spread: 70 });
+                                                            setView('FINAL_SUCCESS');
+                                                        }, 500);
+                                                    }
+                                                } else {
+                                                    alert("앗! 오답이다냥 😿 다시 생각해보라냥!");
                                                 }
                                             }
                                         }}>{num}</button>

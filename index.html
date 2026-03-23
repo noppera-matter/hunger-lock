@@ -346,28 +346,67 @@
             Ear: () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3 3 0 1 1-6 0" /></svg>
         };
 
-        const SUDOKU_PUZZLE = [
-            5, 3, 0, 0, 7, 0, 0, 0, 0,
-            6, 0, 0, 1, 9, 5, 0, 0, 0,
-            0, 9, 8, 0, 0, 0, 0, 6, 0,
-            8, 0, 0, 0, 6, 0, 0, 0, 3,
-            4, 0, 0, 8, 0, 3, 0, 0, 1,
-            7, 0, 0, 0, 2, 0, 0, 0, 6,
-            0, 6, 0, 0, 0, 0, 2, 8, 0,
-            0, 0, 0, 4, 1, 9, 0, 0, 5,
-            0, 0, 0, 0, 8, 0, 0, 7, 9
-        ];
-        const SUDOKU_SOLUTION = [
-            5, 3, 4, 6, 7, 8, 9, 1, 2,
-            6, 7, 2, 1, 9, 5, 3, 4, 8,
-            1, 9, 8, 3, 4, 2, 5, 6, 7,
-            8, 5, 9, 7, 6, 1, 4, 2, 3,
-            4, 2, 6, 8, 5, 3, 7, 9, 1,
-            7, 1, 3, 9, 2, 4, 8, 5, 6,
-            9, 6, 1, 5, 3, 7, 2, 8, 4,
-            2, 8, 7, 4, 1, 9, 6, 3, 5,
-            3, 4, 5, 2, 8, 6, 1, 7, 9
-        ];
+        // 스도쿠 퍼즐 랜덤 생성기
+        const generateSudoku = () => {
+            const board = Array(81).fill(0);
+
+            const isValid = (board, pos, num) => {
+                const row = Math.floor(pos / 9);
+                const col = pos % 9;
+                // 같은 행 체크
+                for (let c = 0; c < 9; c++) {
+                    if (board[row * 9 + c] === num) return false;
+                }
+                // 같은 열 체크
+                for (let r = 0; r < 9; r++) {
+                    if (board[r * 9 + col] === num) return false;
+                }
+                // 같은 3x3 박스 체크
+                const boxRow = Math.floor(row / 3) * 3;
+                const boxCol = Math.floor(col / 3) * 3;
+                for (let r = boxRow; r < boxRow + 3; r++) {
+                    for (let c = boxCol; c < boxCol + 3; c++) {
+                        if (board[r * 9 + c] === num) return false;
+                    }
+                }
+                return true;
+            };
+
+            const shuffle = (arr) => {
+                const a = [...arr];
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]];
+                }
+                return a;
+            };
+
+            const solve = (board, pos = 0) => {
+                if (pos === 81) return true;
+                if (board[pos] !== 0) return solve(board, pos + 1);
+                const nums = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+                for (const num of nums) {
+                    if (isValid(board, pos, num)) {
+                        board[pos] = num;
+                        if (solve(board, pos + 1)) return true;
+                        board[pos] = 0;
+                    }
+                }
+                return false;
+            };
+
+            solve(board);
+            const solution = [...board];
+
+            // 40~50개 셀을 비워서 퍼즐 생성 (적당한 난이도)
+            const cellsToRemove = 40 + Math.floor(Math.random() * 11);
+            const indices = shuffle([...Array(81).keys()]);
+            for (let i = 0; i < cellsToRemove; i++) {
+                board[indices[i]] = 0;
+            }
+
+            return { puzzle: board, solution: solution };
+        };
 
         const MISSION_POOL = [
             { title: "깊은 호흡", desc: "코로 4초 들이마시고 6초 내뱉으세요.", icon: <SVGS.Breath /> },
@@ -398,6 +437,7 @@
             const [sudokuBoard, setSudokuBoard] = useState([]);
             const [sudokuFixed, setSudokuFixed] = useState([]);
             const [sudokuSelected, setSudokuSelected] = useState(-1);
+            const [sudokuSolution, setSudokuSolution] = useState([]);
 
             const [selectedTemp, setSelectedTemp] = useState('');
 
@@ -495,8 +535,10 @@
                             <button className="btn-action" onClick={startStatic}>🧘 정적인 미션 (5단계)</button>
                             <button className="btn-action" style={{ background: 'white', color: 'var(--primary)', border: '2px solid var(--primary)' }} onClick={() => { setBoard(spawn(spawn(Array(16).fill(0)))); setScore(0); setView('GAME'); }}>🎮 2048 퍼즐</button>
                             <button className="btn-action" style={{ background: '#f59e0b', color: 'white', border: '2px solid #f59e0b' }} onClick={() => {
-                                setSudokuBoard([...SUDOKU_PUZZLE]);
-                                setSudokuFixed(SUDOKU_PUZZLE.map(v => v !== 0));
+                                const { puzzle, solution } = generateSudoku();
+                                setSudokuBoard([...puzzle]);
+                                setSudokuFixed(puzzle.map(v => v !== 0));
+                                setSudokuSolution(solution);
                                 setSudokuSelected(-1);
                                 setView('SUDOKU');
                             }}>🧩 3. 스도쿠 게임</button>
@@ -585,12 +627,12 @@
                                                     const nb = [...sudokuBoard];
                                                     nb[sudokuSelected] = 0;
                                                     setSudokuBoard(nb);
-                                                } else if (num === SUDOKU_SOLUTION[sudokuSelected]) {
+                                                } else if (num === sudokuSolution[sudokuSelected]) {
                                                     const nb = [...sudokuBoard];
                                                     nb[sudokuSelected] = num;
                                                     setSudokuBoard(nb);
                                                     confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 } });
-                                                    if (nb.join('') === SUDOKU_SOLUTION.join('')) {
+                                                    if (nb.join('') === sudokuSolution.join('')) {
                                                         setTimeout(() => {
                                                             confetti({ particleCount: 150, spread: 70 });
                                                             setView('FINAL_SUCCESS');
